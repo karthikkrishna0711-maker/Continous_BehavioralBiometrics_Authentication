@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavior Tracking on Real-Time</title>
+    <script src="/static/tracking.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            line-height: 1.5;
+            background: #f9f9f9;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #1e90ff;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            width: 80%;
+            max-width: 600px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-weight: bold;
+            animation: fade-out 5s ease-in-out forwards;
+        }
+
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .flash-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .flash-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Fade Out Animation */
+        @keyframes fade-out {
+            0%, 80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Page Header */
+        h1 {
+            text-align: center;
+            margin-top: 80px;
+            color: #333;
+        }
+
+        .content-description {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Typing Box */
+        #typing-box {
+            width: 80%;
+            max-width: 600px;
+            height: 150px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-label {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Fixed Metric Displays */
+        .metrics {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .metric-box {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        /* Scrolling Content */
+        .content {
+            height: 3000px;
+            background: linear-gradient(to bottom, #fff, #eef6ff);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Behavior Tracker </div>
+        <ul>
+            <li><a href="/starter">Home</a></li>
+            <li><a href="#typing-speed">About</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-messages flash-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>Welcome to User Behavior Tracking</h1>
+    <p class="content-description">Interact with the page to generate behavior metrics.</p>
+
+    <div class="input-label">Type in the box below to calculate your typing speed:</div>
+    <textarea id="typing-box" placeholder="Start typing here..."></textarea>
+
+    <div class="metrics">
+        <div id="scroll-speed" class="metric-box">Scroll Speed: 0 px/s</div>
+        <div id="typing-speed" class="metric-box">Typing Speed: 0 ms/keystroke</div>
+        <div id="timer" class="metric-box">Time Remaining: 30s</div>
+    </div>
+
+    <div class="content">
+        <p>Scroll down to explore and test your scroll speed!</p>
+    </div>
+<!--    <script>-->
+<!--    setTimeout(() => {-->
+<!--        window.location.reload(); // Automatically refresh the page-->
+<!--    }, 32000); // 33 seconds timeout-->
+<!--</script>-->
+
+    <div class="footer">
+        &copy; 2024 Behavior Tracker. All rights reserved.
+    </div>
+</body>
+</html>
