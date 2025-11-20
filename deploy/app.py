@@ -6,21 +6,21 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # app password link https://myaccountapppasswords.google.com/
-app_password = "ciko phbr inox ixim"
+app_password = ""
 
 app = Flask(__name__)
-app.secret_key = 'behavior'
+app.secret_key = ''
 
 # Loading my the trained model
 model = joblib.load("decision_tree_user1.pkl")
 
 def connect_to_db():
     return psycopg2.connect(
-        user="postgres",
-        password="Karthik@123",
-        host="localhost",
-        port=5432,
-        database="mouse_patterns"
+        user="",
+        password="",
+        host="",
+        port=,
+        database=""
     )
 
 
@@ -91,7 +91,7 @@ def user():
 
 
 def send_email_alert(to_email):
-    sender_email = "jaferchokli@gmail.com"
+    sender_email = ""
     subject = "Intruder Alert on Your Website"
     body = """
     Dear User,
@@ -175,3 +175,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)
+
